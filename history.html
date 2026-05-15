@@ -6,6 +6,8 @@
     <title>Emergency History</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
                 <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
         
@@ -171,10 +173,19 @@
     </div>
 
     <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://zhsgoytovsjpvtdbibbc.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpoc2dveXRvdnNqcHZ0ZGJpYmJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTY0MjIsImV4cCI6MjA5MzUzMjQyMn0.jNlo2UQ6aC0UIPc0HxayYjDxWz9WGCvDttTK-AP-LWs';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
         async function fetchHistory() {
             try {
-                const res = await fetch('http://localhost:3001/api/alerts/history');
-                const alerts = await res.json();
+                const { data: alerts, error } = await supabase
+                    .from('alerts')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) throw error;
                 
                 const tbody = document.getElementById('historyTable');
                 document.getElementById('totalRecords').textContent = alerts.length;

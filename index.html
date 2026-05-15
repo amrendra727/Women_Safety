@@ -6,6 +6,8 @@
     <title>SOS | Women Safety</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
                 <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
         
@@ -200,6 +202,11 @@
     </main>
 
     <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://zhsgoytovsjpvtdbibbc.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpoc2dveXRvdnNqcHZ0ZGJpYmJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTY0MjIsImV4cCI6MjA5MzUzMjQyMn0.jNlo2UQ6aC0UIPc0HxayYjDxWz9WGCvDttTK-AP-LWs';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
         // SOS Button Logic
         document.getElementById('sosBtn').addEventListener('click', () => {
             const statusBox = document.getElementById('statusBox');
@@ -214,27 +221,24 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     try {
-                        const response = await fetch('http://localhost:3001/api/sos', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                name,
-                                phone,
-                                message,
-                                latitude: position.coords.latitude,
-                                longitude: position.coords.longitude
-                            })
-                        });
+                        const { data, error } = await supabase
+                            .from('alerts')
+                            .insert([
+                                { 
+                                    name, 
+                                    phone, 
+                                    message, 
+                                    latitude: position.coords.latitude, 
+                                    longitude: position.coords.longitude,
+                                    status: 'ACTIVE'
+                                }
+                            ]);
 
-                        const data = await response.json();
+                        if (error) throw error;
                         
-                        if (data.success) {
-                            statusText.className = "text-[var(--accent-red)] font-bold uppercase tracking-widest text-xs mt-2";
-                            statusText.textContent = "ALERT DISPATCHED TO COMMAND CENTER!";
-                            statusBox.querySelector('i').className = "fa-solid fa-check-circle text-[var(--accent-red)] text-3xl";
-                        } else {
-                            throw new Error("Server rejected the alert.");
-                        }
+                        statusText.className = "text-[var(--accent-red)] font-bold uppercase tracking-widest text-xs mt-2";
+                        statusText.textContent = "ALERT DISPATCHED TO COMMAND CENTER!";
+                        statusBox.querySelector('i').className = "fa-solid fa-check-circle text-[var(--accent-red)] text-3xl";
                     } catch (error) {
                         console.error(error);
                         statusText.className = "text-[#e69b00] font-bold uppercase tracking-widest text-xs mt-2";

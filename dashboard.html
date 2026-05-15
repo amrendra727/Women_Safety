@@ -6,6 +6,8 @@
     <title>Police Command Center | Women Safety</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
                 <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
         
@@ -217,10 +219,20 @@
     </main>
 
     <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://zhsgoytovsjpvtdbibbc.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpoc2dveXRvdnNqcHZ0ZGJpYmJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTY0MjIsImV4cCI6MjA5MzUzMjQyMn0.jNlo2UQ6aC0UIPc0HxayYjDxWz9WGCvDttTK-AP-LWs';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
         async function fetchAlerts() {
             try {
-                const res = await fetch('http://localhost:3001/api/alerts');
-                const alerts = await res.json();
+                const { data: alerts, error } = await supabase
+                    .from('alerts')
+                    .select('*')
+                    .eq('status', 'ACTIVE')
+                    .order('created_at', { ascending: false });
+                
+                if (error) throw error;
                 
                 const alertsList = document.getElementById('alertsList');
                 const countBadge = document.getElementById('activeAlertsCount');
@@ -229,10 +241,10 @@
                 
                 if (alerts.length > 0) {
                     alertsList.innerHTML = alerts.map(alert => {
-                        const lat = alert.latitude || alert.lat;
-                        const lng = alert.longitude || alert.lng;
-                        const name = alert.name || alert.user_name;
-                        const time = alert.time || alert.created_at;
+                        const lat = alert.latitude;
+                        const lng = alert.longitude;
+                        const name = alert.name;
+                        const time = alert.created_at;
                         return `
                         <div class="neo-btn rounded-2xl p-5 cursor-pointer w-full text-left relative overflow-hidden" onclick="updateMap(${lat}, ${lng})">
                             <div class="flex justify-between items-start mb-4">
@@ -307,7 +319,12 @@
         async function resolveAlert(id) {
             if(!confirm("Are you sure you want to mark this emergency as resolved?")) return;
             try {
-                await fetch(`http://localhost:3001/api/alerts/${id}`, { method: 'DELETE' });
+                const { error } = await supabase
+                    .from('alerts')
+                    .update({ status: 'RESOLVED', resolved_at: new Date().toISOString() })
+                    .eq('id', id);
+                
+                if (error) throw error;
                 fetchAlerts(); // Refresh the list instantly
             } catch (err) {
                 console.error(err);
