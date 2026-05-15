@@ -9,7 +9,7 @@ const port = 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, '../')));
 
 // Initialize Supabase REST client (no database password needed!)
 const supabase = createClient(
