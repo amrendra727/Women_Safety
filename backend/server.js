@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static frontend files from the root frontend directory
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join\(__dirname, '\.\.'\)));
 
 async function readAlerts() {
     try {
@@ -91,3 +91,4 @@ app.post('/api/ai-analyze', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
