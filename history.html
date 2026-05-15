@@ -139,8 +139,11 @@
         </div>
         
         <div class="flex gap-5">
+            <button onclick="fetchHistory()" class="neo-btn px-6 py-3 rounded-full text-sm font-bold tracking-wider text-[var(--accent-blue)] flex items-center gap-3">
+                <i class="fa-solid fa-sync-alt"></i> Refresh
+            </button>
             <button class="neo-btn px-6 py-3 rounded-full text-sm font-bold tracking-wider text-[var(--text-main)] flex items-center gap-3">
-                <i class="fa-solid fa-download text-[var(--accent-blue)]"></i> Export CSV
+                <i class="fa-solid fa-download"></i> Export CSV
             </button>
             <a href="dashboard.html" class="neo-btn px-6 py-3 rounded-full text-sm font-bold tracking-wider text-[var(--accent-red)] flex items-center gap-3">
                 <i class="fa-solid fa-arrow-left"></i> Back to Command
@@ -189,16 +192,20 @@
                     .from('alerts')
                     .select('*')
                     .order('created_at', { ascending: false });
-                
-                if (error) throw error;
+
+                if (error) {
+                    alert("Supabase Error: " + error.message);
+                    throw error;
+                }
                 
                 const tbody = document.getElementById('historyTable');
-                document.getElementById('totalRecords').textContent = alerts.length;
-                
-                if (alerts.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-[var(--text-muted)]">No incident history found.</td></tr>';
+                if (!alerts || alerts.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-[var(--text-muted)]">No incident history found in database.</td></tr>';
+                    document.getElementById('totalRecords').textContent = "0";
                     return;
                 }
+                
+                document.getElementById('totalRecords').textContent = alerts.length;
 
                 tbody.innerHTML = alerts.map(alert => {
                     const isResolved = alert.status === 'RESOLVED';
