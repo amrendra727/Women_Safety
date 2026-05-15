@@ -176,11 +176,11 @@
         // Initialize Supabase
         const supabaseUrl = 'https://zhsgoytovsjpvtdbibbc.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpoc2dveXRvdnNqcHZ0ZGJpYmJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTY0MjIsImV4cCI6MjA5MzUzMjQyMn0.jNlo2UQ6aC0UIPc0HxayYjDxWz9WGCvDttTK-AP-LWs';
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
         async function fetchHistory() {
             try {
-                const { data: alerts, error } = await supabase
+                const { data: alerts, error } = await supabaseClient
                     .from('alerts')
                     .select('*')
                     .order('created_at', { ascending: false });

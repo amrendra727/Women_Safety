@@ -205,7 +205,7 @@
         // Initialize Supabase
         const supabaseUrl = 'https://zhsgoytovsjpvtdbibbc.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpoc2dveXRvdnNqcHZ0ZGJpYmJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTY0MjIsImV4cCI6MjA5MzUzMjQyMn0.jNlo2UQ6aC0UIPc0HxayYjDxWz9WGCvDttTK-AP-LWs';
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
         // SOS Button Logic
         document.getElementById('sosBtn').addEventListener('click', () => {
@@ -221,7 +221,7 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     try {
-                        const { data, error } = await supabase
+                        const { data, error } = await supabaseClient
                             .from('alerts')
                             .insert([
                                 { 
