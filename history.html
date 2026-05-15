@@ -200,14 +200,23 @@
                 const client = supabase.createClient(supabaseUrl, supabaseKey);
                 
                 status.textContent = "Fetching records...";
-                const { data: alerts, error } = await client
-                    .from('alerts')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+                
+                // Try fetching without ordering first (most robust)
+                let response = await client.from('alerts').select('*');
+                
+                // Fallback to capitalized table name if empty or error
+                if (response.error || !response.data || response.data.length === 0) {
+                    const fallback = await client.from('Alerts').select('*');
+                    if (!fallback.error && fallback.data && fallback.data.length > 0) {
+                        response = fallback;
+                    }
+                }
+
+                const { data: alerts, error } = response;
 
                 if (error) {
                     status.textContent = "Error: " + error.message;
-                    alert("Supabase Error: " + error.message);
+                    alert("Supabase Error: " + error.message + "\nCode: " + error.code + "\nHint: Check RLS policies on 'alerts' table.");
                     return;
                 }
                 
@@ -215,9 +224,12 @@
                 document.getElementById('totalRecords').textContent = alerts ? alerts.length : 0;
                 
                 if (!alerts || alerts.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-[var(--text-muted)]">No records found. Check if RLS Select Policy is enabled.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-[var(--text-muted)]">No records found. <br><br> 1. Check if RLS SELECT policy is enabled. <br> 2. Ensure table name is exactly "alerts".</td></tr>';
                     return;
                 }
+
+                // Debug: Show first record in alert to confirm data arrival
+                console.log("Data Received:", alerts);
 
                 tbody.innerHTML = alerts.map(alert => {
                     const isResolved = alert.status === 'RESOLVED';
