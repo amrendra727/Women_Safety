@@ -90,6 +90,18 @@
             aside { width: 100% !important; height: 350px !important; flex: none !important; }
             .map-container { height: 450px !important; min-height: 450px !important; flex: none !important; width: 100% !important; position: relative; display: block !important; }
             .md-panel { border-radius: 1.25rem; }
+            .map-overlay-info { 
+                top: 10px !important; 
+                right: 10px !important; 
+                width: auto !important; 
+                padding: 10px !important; 
+                border-radius: 1rem !important;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+            }
+            .map-overlay-info .space-y-3 { display: flex !important; gap: 8px !important; space-y: 0 !important; margin-bottom: 0 !important; }
+            .map-overlay-info .bg-[var(--md-sys-color-surface-variant)] { padding: 4px 8px !important; margin-bottom: 0 !important; flex: 1; }
+            .map-overlay-info .border-b { display: none !important; }
+            .map-overlay-info .flex.justify-between { display: none !important; }
             .map-container iframe { height: 100% !important; width: 100% !important; min-height: 450px !important; display: block !important; }
         }
 
@@ -153,7 +165,7 @@
             </iframe>
             
             <!-- Overlay Info -->
-            <div class="absolute top-4 md:top-6 right-4 md:right-6 md-panel p-4 md:p-6 w-60 md:w-72 shadow-xl border border-[var(--md-sys-color-outline)]/10 z-30">
+            <div class="absolute top-4 md:top-6 right-4 md:right-6 md-panel p-4 md:p-6 w-60 md:w-72 shadow-xl border border-[var(--md-sys-color-outline)]/10 z-30 map-overlay-info">
                 <div class="flex items-center gap-3 md:gap-4 mb-4 md:mb-6 pb-3 md:pb-4 border-b border-[var(--md-sys-color-outline)]/10">
                     <i class="fa-solid fa-location-dot text-[var(--md-sys-color-primary)] text-lg md:text-xl"></i>
                     <span class="text-[var(--md-sys-color-on-surface)] text-[10px] md:text-xs font-bold tracking-widest uppercase">Grid Lock</span>
