@@ -12,227 +12,202 @@
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
         
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --text-main: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.6);
-            --accent-red: #ff3b3b;
-            --accent-blue: #00d2ff;
-            --accent-green: #39ff14;
-            --neon-glow: 0 0 20px rgba(255, 59, 59, 0.8), 0 0 40px rgba(255, 59, 59, 0.4);
+            --md-sys-color-primary: #B3261E; /* Material Red for SOS */
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #F9DEDC;
+            --md-sys-color-on-primary-container: #410E0B;
+            --md-sys-color-secondary: #6750A4; /* Material Purple */
+            --md-sys-color-surface: #FEF7FF;
+            --md-sys-color-surface-variant: #E7E0EC;
+            --md-sys-color-on-surface: #1C1B1F;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-outline: #79747E;
         }
 
         body { 
             font-family: 'Nunito', sans-serif; 
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-            color: var(--text-main); 
-            overflow-x: hidden; 
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface); 
             min-height: 100vh;
         }
         
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            border-radius: 2rem;
-            transform-style: preserve-3d;
-            perspective: 1000px;
+        .md-card {
+            background-color: white;
+            border-radius: 1.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        }
+        .md-card:hover {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.1);
         }
 
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            border: 1px solid var(--glass-border);
-            border-radius: 1.25rem;
-            transition: all 0.3s ease;
+        .md-fab {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
+        .md-fab:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transform: scale(1.02);
+        }
+        .md-fab:active {
+            transform: scale(0.95);
         }
 
-        .glass-input {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--glass-border);
-            color: white;
-            border-radius: 1rem;
+        .md-input {
+            background-color: var(--md-sys-color-surface-variant);
+            border-bottom: 2px solid var(--md-sys-color-outline);
+            border-radius: 0.5rem 0.5rem 0 0;
+            padding: 1rem 1rem;
             outline: none;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s;
         }
-        .glass-input:focus {
-            background: rgba(0, 0, 0, 0.3);
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        .md-input:focus {
+            border-color: var(--md-sys-color-secondary);
         }
 
-        .sos-orb {
-            width: 240px;
-            height: 240px;
-            background: radial-gradient(circle at 30% 30%, #ff5f6d, #ff3b3b);
+        .sos-container {
+            width: 280px;
+            height: 280px;
+            background-color: var(--md-sys-color-primary-container);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.5s;
+        }
+
+        .sos-btn-large {
+            width: 220px;
+            height: 220px;
+            background-color: var(--md-sys-color-primary);
+            color: white;
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            font-weight: 900;
-            color: white;
+            box-shadow: 0 10px 20px rgba(179, 38, 30, 0.3);
+            transition: 0.3s;
             cursor: pointer;
-            position: relative;
-            box-shadow: 
-                0 10px 30px rgba(0,0,0,0.5),
-                inset 10px 10px 20px rgba(255,255,255,0.4),
-                inset -10px -10px 20px rgba(0,0,0,0.3),
-                var(--neon-glow);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: orb-pulse 2s infinite alternate;
+            border: none;
         }
-        
-        @keyframes orb-pulse {
-            from { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.5), var(--neon-glow); }
-            to { transform: scale(1.05); box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 30px rgba(255, 59, 59, 1), 0 0 60px rgba(255, 59, 59, 0.6); }
+        .sos-btn-large:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(179, 38, 30, 0.4);
         }
 
-        .sos-orb:active {
-            transform: scale(0.9);
-            box-shadow: inset 10px 10px 30px rgba(0,0,0,0.6);
-        }
-
-        .glow-text {
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-
-        .bg-blob {
+        .ripple {
             position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%);
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            z-index: -1;
-            filter: blur(80px);
-            opacity: 0.2;
-            animation: blob-float 15s infinite alternate ease-in-out;
+            transform: scale(0);
+            animation: ripple-effect 0.6s linear;
         }
-        .bg-blob-red {
-            background: radial-gradient(circle, var(--accent-red) 0%, transparent 70%);
-            animation-delay: -5s;
+        @keyframes ripple-effect {
+            to { transform: scale(4); opacity: 0; }
         }
 
-        @keyframes blob-float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(100px, 200px) scale(1.2); }
-        }
-
-        .floating {
-            animation: floating 4s ease-in-out infinite;
-        }
+        .floating { animation: floating 3s ease-in-out infinite; }
         @keyframes floating {
-            0%, 100% { transform: translateY(0) rotateX(0); }
-            50% { transform: translateY(-15px) rotateX(5deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
-        /* 3D hover effect */
-        .card-3d {
-            transition: transform 0.3s ease;
-        }
-        .card-3d:hover {
-            transform: translateY(-10px) rotateY(2deg) rotateX(2deg);
-        }
-
-        /* Map tint for sober mode */
-        .map-tint { filter: grayscale(0.5) contrast(1.1) brightness(1.05); }
-        
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--md-sys-color-surface); }
+        ::-webkit-scrollbar-thumb { background: var(--md-sys-color-outline); border-radius: 10px; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center pb-20 overflow-x-hidden relative">
-    <div class="bg-blob top-[10%] left-[-5%]"></div>
-    <div class="bg-blob bg-blob-red bottom-[10%] right-[-5%]"></div>
+<body class="flex flex-col items-center pb-20">
 
     <!-- Navigation -->
-    <nav class="w-full p-6 flex justify-between items-center z-50 sticky top-0 backdrop-blur-xl border-b border-white/10">
+    <nav class="w-full px-8 py-6 flex justify-between items-center z-50 sticky top-0 bg-white shadow-sm">
         <div class="flex items-center gap-4">
-            <div class="w-14 h-14 glass-btn flex items-center justify-center text-[var(--accent-red)] shadow-[0_0_15px_rgba(255,59,59,0.3)]">
+            <div class="w-12 h-12 md-fab bg-transparent shadow-none text-[var(--md-sys-color-primary)]">
                 <i class="fa-solid fa-shield-heart text-2xl"></i>
             </div>
-            <span class="font-black text-2xl tracking-tighter text-white glow-text">KAVACH</span>
+            <span class="font-bold text-xl tracking-tight text-[var(--md-sys-color-on-surface)]">KAVACH</span>
         </div>
-        <div class="flex gap-6">
-            <a href="ai-assistant.html" class="w-14 h-14 glass-btn flex items-center justify-center text-[var(--accent-blue)] hover:shadow-[0_0_20px_rgba(0,210,255,0.4)]">
+        <div class="flex gap-4">
+            <a href="ai-assistant.html" class="w-12 h-12 md-fab bg-[var(--md-sys-color-surface-variant)] text-[var(--md-sys-color-secondary)] shadow-none">
                 <i class="fa-solid fa-robot text-xl"></i>
             </a>
-            <a href="login.html" class="w-14 h-14 glass-btn flex items-center justify-center text-[var(--accent-red)] hover:shadow-[0_0_20px_rgba(255,59,59,0.4)]">
+            <a href="login.html" class="w-12 h-12 md-fab bg-[var(--md-sys-color-surface-variant)] text-[var(--md-sys-color-primary)] shadow-none">
                 <i class="fa-solid fa-user-shield text-xl"></i>
             </a>
         </div>
     </nav>
 
-    <main class="w-full max-w-md px-6 flex flex-col items-center flex-1 z-10 mt-10">
+    <main class="w-full max-w-md px-6 flex flex-col items-center flex-1 mt-10">
         
-        <div class="text-center mb-16 floating">
-            <h1 class="text-6xl font-black mb-3 text-white uppercase tracking-tighter glow-text">Emergency <span class="text-[var(--accent-red)]">SOS</span></h1>
-            <p class="text-white/60 text-[10px] font-black uppercase tracking-[0.5em]">Shield Activated • Secured Feed</p>
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-2 text-[var(--md-sys-color-on-surface)]">Emergency <span class="text-[var(--md-sys-color-primary)]">SOS</span></h1>
+            <p class="text-[var(--md-sys-color-on-surface-variant)] text-xs font-medium tracking-wide">Shield Protocol Ready</p>
         </div>
 
         <!-- User Details Form -->
-        <div class="w-full glass-card card-3d p-8 mb-16">
-            <div class="flex items-center gap-3 mb-8 text-[10px] font-black text-white/70 uppercase tracking-widest">
-                <i class="fa-solid fa-id-card text-[var(--accent-red)] text-sm shadow-sm"></i> Identity Verification
+        <div class="w-full md-card mb-12">
+            <div class="flex items-center gap-3 mb-8 text-xs font-bold text-[var(--md-sys-color-on-surface-variant)]">
+                <i class="fa-solid fa-id-card text-[var(--md-sys-color-primary)]"></i> Identity Verification
             </div>
-            <div class="space-y-6">
-                <input type="text" id="sosName" placeholder="ENTER FULL NAME" class="glass-input w-full px-6 py-5 text-sm font-bold tracking-widest uppercase placeholder-white/20">
-                <input type="text" id="sosPhone" placeholder="VERIFIED CONTACT" class="glass-input w-full px-6 py-5 text-sm font-bold tracking-widest uppercase placeholder-white/20">
-                <textarea id="sosMessage" placeholder="DESCRIBE EMERGENCY..." class="glass-input w-full px-6 py-5 text-sm font-bold h-28 resize-none tracking-widest uppercase placeholder-white/20"></textarea>
+            <div class="space-y-6 flex flex-col">
+                <input type="text" id="sosName" placeholder="Full Name" class="md-input w-full text-sm font-medium">
+                <input type="text" id="sosPhone" placeholder="Contact Number" class="md-input w-full text-sm font-medium">
+                <textarea id="sosMessage" placeholder="Emergency Details..." class="md-input w-full text-sm font-medium h-24 resize-none"></textarea>
             </div>
         </div>
 
         <!-- Giant SOS Orb Button -->
-        <div class="relative flex items-center justify-center mb-24">
-            <div class="absolute w-[300px] h-[300px] bg-[var(--accent-red)]/10 rounded-full blur-[40px] animate-pulse"></div>
-            <button id="sosBtn" class="sos-orb group">
-                <i class="fa-solid fa-fingerprint mb-4 text-5xl opacity-80 group-hover:scale-110 transition-transform"></i>
-                <span class="tracking-tighter">SOS</span>
-                <div class="absolute -bottom-12 text-[10px] font-black tracking-[0.5em] text-white/40 uppercase">Hold to Activate</div>
-            </button>
+        <div class="relative flex items-center justify-center mb-16">
+            <div class="sos-container">
+                <button id="sosBtn" class="sos-btn-large">
+                    <i class="fa-solid fa-fingerprint mb-3 text-4xl"></i>
+                    <span class="text-2xl font-bold">SOS</span>
+                </button>
+            </div>
+            <div class="absolute -bottom-10 text-xs font-bold text-[var(--md-sys-color-on-surface-variant)]">Tap to Broadcast</div>
         </div>
 
         <!-- Status Box -->
-        <div id="statusBox" class="w-full glass-card p-10 text-center hidden mb-16 animate-bounce">
-            <i class="fa-solid fa-satellite-dish text-[var(--accent-blue)] animate-pulse mb-6 text-4xl shadow-[0_0_20px_rgba(0,210,255,0.5)]"></i>
-            <p id="statusText" class="text-white font-black text-sm uppercase tracking-[0.3em]">Linking with Hub...</p>
+        <div id="statusBox" class="w-full md-card text-center hidden mb-12">
+            <i class="fa-solid fa-satellite-dish text-[var(--md-sys-color-secondary)] mb-4 text-4xl"></i>
+            <p id="statusText" class="text-[var(--md-sys-color-on-surface)] font-bold text-sm">Transmitting signal...</p>
         </div>
 
         <!-- Quick Actions -->
-        <div class="grid grid-cols-2 gap-10 w-full mb-20">
-            <a href="tel:112" class="glass-btn p-8 flex flex-col items-center gap-5 text-white hover:border-[var(--accent-red)] group">
-                <div class="w-16 h-16 glass-btn flex items-center justify-center text-[var(--accent-red)] group-hover:shadow-[0_0_20px_rgba(255,59,59,0.5)] transition-all">
-                    <i class="fa-solid fa-phone-flip text-2xl"></i>
+        <div class="grid grid-cols-2 gap-6 w-full mb-16">
+            <a href="tel:112" class="md-card flex flex-col items-center gap-4 bg-[var(--md-sys-color-primary-container)]">
+                <div class="w-12 h-12 md-fab bg-[var(--md-sys-color-primary)] text-white shadow-none">
+                    <i class="fa-solid fa-phone-flip"></i>
                 </div>
-                <span class="text-[10px] font-black uppercase tracking-[0.3em]">Fast 112</span>
+                <span class="text-xs font-bold text-[var(--md-sys-color-on-primary-container)]">Dial 112</span>
             </a>
-            <button onclick="shareLocation()" class="glass-btn p-8 flex flex-col items-center gap-5 text-white hover:border-[var(--accent-blue)] group">
-                <div class="w-16 h-16 glass-btn flex items-center justify-center text-[var(--accent-blue)] group-hover:shadow-[0_0_20px_rgba(0,210,255,0.5)] transition-all">
-                    <i class="fa-solid fa-location-crosshairs text-2xl"></i>
+            <button onclick="shareLocation()" class="md-card flex flex-col items-center gap-4 bg-[var(--md-sys-color-surface-variant)]">
+                <div class="w-12 h-12 md-fab bg-[var(--md-sys-color-secondary)] text-white shadow-none">
+                    <i class="fa-solid fa-location-crosshairs"></i>
                 </div>
-                <span class="text-[10px] font-black uppercase tracking-[0.3em]">Live Feed</span>
+                <span class="text-xs font-bold text-[var(--md-sys-color-on-surface-variant)]">Share Link</span>
             </button>
         </div>
 
         <!-- Trusted Contacts -->
-        <div class="w-full glass-card card-3d p-10">
-            <div class="flex justify-between items-center mb-10">
+        <div class="w-full md-card">
+            <div class="flex justify-between items-center mb-8">
                 <div>
-                    <h2 class="font-black text-white uppercase text-lg tracking-tighter glow-text">The Vanguard</h2>
-                    <p class="text-[9px] text-white/40 font-black uppercase tracking-[0.3em] mt-1">Direct Emergency Links</p>
+                    <h2 class="font-bold text-[var(--md-sys-color-on-surface)] text-lg">Safe Network</h2>
+                    <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] font-medium">Personal Response Units</p>
                 </div>
-                <button onclick="addContact()" class="w-12 h-12 glass-btn text-[var(--accent-green)] hover:shadow-[0_0_15px_rgba(57,255,20,0.4)] transition-all"><i class="fa-solid fa-plus"></i></button>
+                <button onclick="addContact()" class="w-12 h-12 md-fab bg-[var(--md-sys-color-secondary)]"><i class="fa-solid fa-plus"></i></button>
             </div>
-            <div class="space-y-8" id="contactsList">
+            <div class="space-y-6" id="contactsList">
                 <!-- Dynamically populated via JS -->
             </div>
         </div>
@@ -276,20 +251,20 @@
                             throw error;
                         }
                         
-                        statusText.className = "text-[var(--accent-green)] font-bold uppercase tracking-widest text-xs mt-2";
+                        statusText.className = "text-green-600 font-bold uppercase tracking-widest text-xs mt-2";
                         statusText.textContent = "ALERT DISPATCHED TO COMMAND CENTER!";
-                        statusBox.querySelector('i').className = "fa-solid fa-check-circle text-[var(--accent-green)] text-3xl";
+                        statusBox.querySelector('i').className = "fa-solid fa-check-circle text-green-600 text-3xl";
                     } catch (error) {
                         console.error(error);
-                        statusText.className = "text-[#e69b00] font-bold uppercase tracking-widest text-xs mt-2";
+                        statusText.className = "text-orange-600 font-bold uppercase tracking-widest text-xs mt-2";
                         statusText.textContent = "NETWORK ERROR: COULD NOT DISPATCH ALERT.";
-                        statusBox.querySelector('i').className = "fa-solid fa-triangle-exclamation text-[#e69b00] text-3xl";
+                        statusBox.querySelector('i').className = "fa-solid fa-triangle-exclamation text-orange-600 text-3xl";
                     }
 
                 }, (error) => {
-                    statusText.className = "text-[#e69b00] font-bold uppercase tracking-widest text-xs mt-2";
+                    statusText.className = "text-orange-600 font-bold uppercase tracking-widest text-xs mt-2";
                     statusText.textContent = "GPS Failed. Make sure location is allowed.";
-                    statusBox.querySelector('i').className = "fa-solid fa-exclamation-triangle text-[#e69b00] text-3xl";
+                    statusBox.querySelector('i').className = "fa-solid fa-exclamation-triangle text-orange-600 text-3xl";
                 });
             } else {
                 statusText.textContent = "Location services not available.";
@@ -319,19 +294,19 @@
         function renderContacts() {
             const list = document.getElementById('contactsList');
             list.innerHTML = contacts.map((c, index) => `
-                <div class="flex justify-between items-center glass-btn p-6 border-white/5">
-                    <div class="flex items-center gap-6">
-                        <div class="w-14 h-14 glass-btn flex items-center justify-center text-white/30">
-                            <i class="fa-solid fa-user-shield text-xl"></i>
+                <div class="flex justify-between items-center p-4 bg-[var(--md-sys-color-surface-variant)] rounded-2xl">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 md-fab bg-white shadow-sm text-[var(--md-sys-color-outline)]">
+                            <i class="fa-solid fa-user-shield text-base"></i>
                         </div>
                         <div>
-                            <p class="font-black text-sm text-white uppercase tracking-tighter">${c.name}</p>
-                            <p class="text-[9px] text-white/40 font-black tracking-[0.2em] mt-1 uppercase">${c.phone}</p>
+                            <p class="font-bold text-sm text-[var(--md-sys-color-on-surface)]">${c.name}</p>
+                            <p class="text-xs text-[var(--md-sys-color-on-surface-variant)]">${c.phone}</p>
                         </div>
                     </div>
-                    <div class="flex gap-4">
-                        <a href="tel:${c.phone}" class="w-12 h-12 flex items-center justify-center glass-btn text-[var(--accent-green)] hover:shadow-[0_0_15px_rgba(57,255,20,0.3)]"><i class="fa-solid fa-phone-flip"></i></a>
-                        <button onclick="removeContact(${index})" class="w-12 h-12 flex items-center justify-center glass-btn text-[var(--accent-red)] hover:shadow-[0_0_15px_rgba(255,59,59,0.3)]"><i class="fa-solid fa-trash-can"></i></button>
+                    <div class="flex gap-2">
+                        <a href="tel:${c.phone}" class="w-10 h-10 md-fab bg-white text-green-600 shadow-sm"><i class="fa-solid fa-phone"></i></a>
+                        <button onclick="removeContact(${index})" class="w-10 h-10 md-fab bg-white text-red-600 shadow-sm"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </div>
             `).join('');

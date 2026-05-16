@@ -11,115 +11,93 @@
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
         
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --text-main: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.6);
-            --accent-red: #ff3b3b;
-            --accent-blue: #00d2ff;
+            --md-sys-color-primary: #B3261E;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-secondary: #6750A4;
+            --md-sys-color-surface: #FEF7FF;
+            --md-sys-color-surface-variant: #E7E0EC;
+            --md-sys-color-on-surface: #1C1B1F;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-outline: #79747E;
         }
 
         body { 
             font-family: 'Nunito', sans-serif; 
-            background: radial-gradient(circle at top left, #0f172a, #1e293b);
-            color: var(--text-main); 
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface); 
             overflow: hidden; 
         }
         
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            border-radius: 2.5rem;
-            transform: perspective(1000px) rotateX(5deg);
+        .md-card {
+            background-color: white;
+            border-radius: 1.75rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         }
 
-        .glass-input {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--glass-border);
-            color: white;
-            border-radius: 1.25rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        .glass-input:focus {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
-        }
-
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
+        .md-btn {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
             border-radius: 1.5rem;
-            transition: all 0.3s ease;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
         }
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(255, 59, 59, 0.4);
-        }
-
-        .bg-blob {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--accent-red) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(60px);
-            opacity: 0.15;
-            animation: blob-move 10s infinite alternate ease-in-out;
-        }
-        @keyframes blob-move {
-            from { transform: translate(-50px, -50px); }
-            to { transform: translate(50px, 50px); }
+        .md-btn:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            opacity: 0.9;
         }
 
-        /* Map tint for sober mode */
-        .map-tint { filter: grayscale(0.5) contrast(1.1) brightness(1.05); }
-        
+        .md-input {
+            background-color: var(--md-sys-color-surface-variant);
+            border-bottom: 2px solid var(--md-sys-color-outline);
+            border-radius: 0.5rem 0.5rem 0 0;
+            padding: 1rem 1.25rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        .md-input:focus {
+            border-color: var(--md-sys-color-secondary);
+        }
+
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--md-sys-color-surface); }
+        ::-webkit-scrollbar-thumb { background: var(--md-sys-color-outline); border-radius: 4px; }
     </style>
 </head>
 
-<body class="h-screen flex items-center justify-center relative overflow-hidden">
-    <div class="bg-blob top-0 left-0"></div>
-    <div class="bg-blob bottom-0 right-0 bg-blue-500/10"></div>
+<body class="h-screen flex items-center justify-center">
 
-    <div class="z-10 w-full max-w-sm glass-card p-12 relative overflow-hidden m-4 border-white/10">
+    <div class="w-full max-w-sm md-card p-10 m-4">
 
-        <div class="text-center mb-12 relative">
-            <div class="inline-flex items-center justify-center w-24 h-24 glass-btn mb-8 text-[var(--accent-red)] shadow-[0_0_20px_rgba(255,59,59,0.2)]">
-                <i class="fa-solid fa-fingerprint text-4xl"></i>
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-[var(--md-sys-color-primary-container)] rounded-3xl mb-6 text-[var(--md-sys-color-primary)]">
+                <i class="fa-solid fa-user-lock text-3xl"></i>
             </div>
-            <h2 class="font-black text-3xl tracking-tighter uppercase text-white glow-text">Secure <span class="text-[var(--accent-red)]">Portal</span></h2>
-            <p class="text-[9px] text-white/40 mt-3 uppercase tracking-[0.4em] font-black">Encrypted Channel Access</p>
+            <h2 class="font-bold text-3xl text-[var(--md-sys-color-on-surface)]">Admin <span class="text-[var(--md-sys-color-primary)]">Portal</span></h2>
+            <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] mt-2 font-medium">Restricted Access Area</p>
         </div>
 
         <form id="loginForm" class="space-y-8">
-            <div>
-                <label class="block text-[10px] text-white/50 uppercase tracking-widest mb-4 font-black ml-4">Identification</label>
-                <input type="text" id="username" class="glass-input w-full px-6 py-5 text-sm font-bold tracking-widest uppercase placeholder-white/10" placeholder="Officer ID" required>
+            <div class="flex flex-col">
+                <label class="text-xs font-bold text-[var(--md-sys-color-on-surface-variant)] mb-2 ml-1">Badge ID</label>
+                <input type="text" id="username" class="md-input w-full text-sm font-medium" placeholder="Username" required>
             </div>
 
-            <div>
-                <label class="block text-[10px] text-white/50 uppercase tracking-widest mb-4 font-black ml-4">Access Code</label>
-                <input type="password" id="password" class="glass-input w-full px-6 py-5 text-sm font-bold tracking-[0.8em]" placeholder="••••••••" required>
+            <div class="flex flex-col">
+                <label class="text-xs font-bold text-[var(--md-sys-color-on-surface-variant)] mb-2 ml-1">Access Key</label>
+                <input type="password" id="password" class="md-input w-full text-sm font-medium" placeholder="••••••••" required>
             </div>
 
-            <button type="submit" class="w-full glass-btn py-6 text-[var(--accent-red)] font-black uppercase tracking-[0.2em] text-xs transition-all">
-                Authenticate Access
+            <button type="submit" class="w-full md-btn py-4 text-sm uppercase tracking-wider">
+                Authenticate
             </button>
         </form>
 
-        <div class="mt-12 text-center pt-8 border-t border-white/5">
-            <a href="index.html" class="text-[10px] text-white/40 hover:text-white transition font-black uppercase tracking-widest flex items-center justify-center gap-3">
-                <i class="fa-solid fa-arrow-left-long"></i> Abort Mission
+        <div class="mt-10 text-center pt-8 border-t border-[var(--md-sys-color-outline)]/20">
+            <a href="index.html" class="text-xs text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-primary)] transition font-bold flex items-center justify-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Return to Home
             </a>
         </div>
     </div>

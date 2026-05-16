@@ -12,105 +12,111 @@
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
         
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.5);
-            --accent-red: #ff3b3b;
-            --accent-green: #39ff14;
-            --accent-blue: #00d2ff;
+            --md-sys-color-primary: #B3261E;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-secondary: #6750A4;
+            --md-sys-color-surface: #FEF7FF;
+            --md-sys-color-surface-variant: #E7E0EC;
+            --md-sys-color-on-surface: #1C1B1F;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-outline: #79747E;
         }
 
         body { 
             font-family: 'Nunito', sans-serif; 
-            background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
-            color: var(--text-main); 
-            overflow-x: hidden; 
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface); 
             min-height: 100vh;
         }
         
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            border-radius: 2.5rem;
+        .md-card {
+            background-color: white;
+            border-radius: 1.75rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
         }
 
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
+        .md-btn {
+            padding: 0.75rem 1.5rem;
             border-radius: 1.25rem;
-            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
         }
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
+        .md-btn-filled { background-color: var(--md-sys-color-primary); color: white; }
+        .md-btn-tonal { background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface-variant); }
+        .md-btn-outline { border: 1px solid var(--md-sys-color-outline); color: var(--md-sys-color-primary); }
+        .md-btn:hover { opacity: 0.85; }
 
-        .glow-text {
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        .status-chip {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--md-sys-color-surface); }
+        ::-webkit-scrollbar-thumb { background: var(--md-sys-color-outline); border-radius: 10px; }
     </style>
 </head>
-<body class="min-h-screen p-8 flex flex-col gap-10 max-w-6xl mx-auto w-full relative">
-    <div class="fixed inset-0 z-[-1] opacity-10 pointer-events-none">
-        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-red-600 rounded-full blur-[150px]"></div>
-        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-600 rounded-full blur-[150px]"></div>
-    </div>
+<body class="min-h-screen p-8 flex flex-col gap-8 max-w-6xl mx-auto w-full">
 
-    <header class="glass-panel p-8 flex justify-between items-center border-white/5">
-        <div class="flex items-center gap-8">
-            <div class="w-16 h-16 glass-btn flex items-center justify-center text-[var(--accent-red)] shadow-[0_0_15px_rgba(255,59,59,0.2)]">
-                <i class="fa-solid fa-server text-3xl"></i>
+    <header class="md-card px-10 py-6 flex justify-between items-center">
+        <div class="flex items-center gap-6">
+            <div class="w-12 h-12 bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-primary)] rounded-2xl flex items-center justify-center">
+                <i class="fa-solid fa-server text-2xl"></i>
             </div>
             <div>
-                <h1 class="font-black text-4xl text-white tracking-tighter uppercase glow-text">SIGNAL <span class="text-[var(--accent-red)]">ARCHIVE</span></h1>
-                <p class="text-[10px] text-white/40 font-black tracking-[0.4em] uppercase mt-2">Deep Storage Retrieval Active</p>
+                <h1 class="font-bold text-3xl text-[var(--md-sys-color-on-surface)] tracking-tight">Signal <span class="text-[var(--md-sys-color-primary)]">Vault</span></h1>
+                <p class="text-xs text-[var(--md-sys-color-on-surface-variant)] font-medium">Emergency Broadcast Archives</p>
             </div>
         </div>
         
-        <div class="flex gap-8">
-            <button onclick="fetchHistory()" class="glass-btn px-10 py-5 text-[10px] font-black tracking-widest text-[var(--accent-blue)] flex items-center gap-4 uppercase hover:shadow-[0_0_20px_rgba(0,210,255,0.3)] transition-all">
+        <div class="flex gap-4">
+            <button onclick="fetchHistory()" class="md-btn md-btn-tonal text-blue-600">
                 <i class="fa-solid fa-sync-alt"></i> Sync
             </button>
-            <button onclick="exportToCSV()" class="glass-btn px-10 py-5 text-[10px] font-black tracking-widest text-white flex items-center gap-4 uppercase">
+            <button onclick="exportToCSV()" class="md-btn md-btn-tonal">
                 <i class="fa-solid fa-file-export"></i> Export
             </button>
-            <a href="dashboard.html" class="glass-btn px-10 py-5 text-[10px] font-black tracking-widest text-[var(--accent-red)] flex items-center gap-4 uppercase transition-all">
+            <a href="dashboard.html" class="md-btn md-btn-outline">
                 <i class="fa-solid fa-arrow-left"></i> Hub
             </a>
         </div>
     </header>
 
-    <div class="glass-panel flex-1 flex flex-col overflow-hidden mb-12 border-white/5">
-        <div class="overflow-x-auto flex-1 m-10 rounded-[2rem]">
+    <div class="md-card flex-1 flex flex-col overflow-hidden mb-8">
+        <div class="overflow-x-auto flex-1 m-6 rounded-2xl border border-[var(--md-sys-color-outline)]/10">
             <table class="w-full text-left border-collapse whitespace-nowrap">
                 <thead>
-                    <tr class="text-[10px] uppercase tracking-[0.4em] text-white/30 font-black border-b border-white/5">
-                        <th class="p-10">Beacon ID</th>
-                        <th class="p-10">Identity</th>
-                        <th class="p-10">Coordinates</th>
-                        <th class="p-10">Timestamp</th>
-                        <th class="p-10">Status</th>
-                        <th class="p-10 text-right">Actions</th>
+                    <tr class="text-[10px] uppercase tracking-widest text-[var(--md-sys-color-on-surface-variant)] font-bold bg-[var(--md-sys-color-surface-variant)]/30">
+                        <th class="p-6">Signal ID</th>
+                        <th class="p-6">Subject</th>
+                        <th class="p-6">Location</th>
+                        <th class="p-6">Timestamp</th>
+                        <th class="p-6">Status</th>
+                        <th class="p-6 text-right">Info</th>
                     </tr>
                 </thead>
-                <tbody id="historyTable" class="text-xs font-black uppercase tracking-widest">
+                <tbody id="historyTable" class="text-sm font-medium">
                     <!-- Dynamically populated via JS -->
                 </tbody>
             </table>
         </div>
         
-        <div class="px-12 pb-12 pt-6 flex justify-between items-center text-[10px] text-white/20 font-black uppercase tracking-[0.5em]">
-            <span>Total Signals Tracked: <span id="totalRecords" class="text-white">0</span></span>
-            <span id="fetchStatus" class="text-[var(--accent-blue)] animate-pulse">Scanning Grid...</span>
+        <div class="px-8 pb-8 flex justify-between items-center text-xs text-[var(--md-sys-color-on-surface-variant)] font-medium">
+            <span>Total Records: <span id="totalRecords" class="font-bold text-[var(--md-sys-color-on-surface)]">0</span></span>
+            <span id="fetchStatus" class="text-blue-600">Ready</span>
         </div>
     </div>
 
@@ -182,33 +188,33 @@
                     const displayId = alert.id ? alert.id.toString().slice(-4) : '####';
                     
                     const statusHtml = isResolved 
-                        ? `<span class="glass-btn inline-flex items-center gap-3 px-6 py-3 text-[8px] font-black tracking-[0.3em] text-[var(--accent-green)] border-white/5">
-                                <span class="w-2 h-2 rounded-full bg-[var(--accent-green)] shadow-[0_0_10px_rgba(57,255,20,0.5)]"></span> SECURED
+                        ? `<span class="status-chip bg-green-100 text-green-700">
+                                <i class="fa-solid fa-check-circle"></i> RESOLVED
                             </span>`
-                        : `<span class="glass-btn inline-flex items-center gap-3 px-6 py-3 text-[8px] font-black tracking-[0.3em] text-[var(--accent-red)] border-white/5">
-                                <span class="w-2 h-2 rounded-full bg-[var(--accent-red)] animate-ping shadow-[0_0_10px_rgba(255,59,59,1)]"></span> BROADCASTING
+                        : `<span class="status-chip bg-red-100 text-red-700">
+                                <i class="fa-solid fa-tower-broadcast animate-pulse"></i> ACTIVE
                             </span>`;
 
                     return `
-                        <tr class="hover:bg-white/5 transition-all border-b border-white/5 group">
-                            <td class="p-10 text-white/40 font-black tracking-[0.3em]">#LOG-${displayId}</td>
-                            <td class="p-10 text-white">
-                                <div class="flex items-center gap-6">
-                                    <div class="w-14 h-14 glass-btn flex items-center justify-center text-[10px] text-white/30 font-black uppercase tracking-tighter group-hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-all">${(alert.name || 'U').substring(0, 2)}</div>
-                                    <span class="tracking-widest uppercase font-black">${alert.name || 'Unknown Subject'}</span>
+                        <tr class="hover:bg-[var(--md-sys-color-surface-variant)]/20 transition-all border-b border-[var(--md-sys-color-outline)]/5">
+                            <td class="p-6 text-[var(--md-sys-color-on-surface-variant)] font-bold">#${displayId}</td>
+                            <td class="p-6 text-[var(--md-sys-color-on-surface)]">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 bg-[var(--md-sys-color-surface-variant)] rounded-xl flex items-center justify-center text-xs font-bold text-[var(--md-sys-color-on-surface-variant)]">${(alert.name || 'U').substring(0, 2)}</div>
+                                    <span class="font-bold">${alert.name || 'Unknown'}</span>
                                 </div>
                             </td>
-                            <td class="p-10 text-[9px] text-white/80 tracking-[0.3em] font-black">
-                                <span class="text-white/20">LAT:</span> ${parseFloat(alert.latitude || 0).toFixed(4)} <br>
-                                <span class="text-white/20 mt-3 block">LNG:</span> ${parseFloat(alert.longitude || 0).toFixed(4)}
+                            <td class="p-6 text-xs text-[var(--md-sys-color-on-surface-variant)] font-medium">
+                                <div>LAT: ${parseFloat(alert.latitude || 0).toFixed(4)}</div>
+                                <div class="mt-1">LNG: ${parseFloat(alert.longitude || 0).toFixed(4)}</div>
                             </td>
-                            <td class="p-10 text-white/80">
-                                <p class="tracking-[0.2em]">${dateObj.toLocaleDateString()}</p>
-                                <p class="text-[9px] text-white/30 tracking-[0.4em] mt-3 uppercase">${dateObj.toLocaleTimeString()}</p>
+                            <td class="p-6 text-[var(--md-sys-color-on-surface)]">
+                                <div class="text-xs font-bold">${dateObj.toLocaleDateString()}</div>
+                                <div class="text-[10px] text-[var(--md-sys-color-on-surface-variant)] mt-1 uppercase">${dateObj.toLocaleTimeString()}</div>
                             </td>
-                            <td class="p-10">${statusHtml}</td>
-                            <td class="p-10 text-right">
-                                <button onclick="alert('System Decryption: ${alert.message || 'No data recorded'}')" class="w-14 h-14 glass-btn inline-flex items-center justify-center text-[var(--accent-blue)] hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] transition-all"><i class="fa-solid fa-shield-halved text-xl"></i></button>
+                            <td class="p-6">${statusHtml}</td>
+                            <td class="p-6 text-right">
+                                <button onclick="alert('Message: ${alert.message || 'N/A'}')" class="w-10 h-10 bg-[var(--md-sys-color-surface-variant)] rounded-xl text-[var(--md-sys-color-secondary)] hover:bg-purple-100 transition-all"><i class="fa-solid fa-info-circle"></i></button>
                             </td>
                         </tr>
                     `;
