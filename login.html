@@ -105,14 +105,14 @@
     <script>
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
+            const user = document.getElementById('username').value.trim().toLowerCase();
+            const pass = document.getElementById('password').value.trim();
 
             if (user === 'admin' && pass === 'admin') {
                 localStorage.setItem('isAdmin', 'true');
                 window.location.href = 'dashboard.html';
             } else {
-                alert('🚨 INVALID CREDENTIALS! Access Denied.');
+                alert('🚨 INVALID CREDENTIALS! Username: admin | Password: admin');
             }
         });
     </script>
