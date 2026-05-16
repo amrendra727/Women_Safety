@@ -97,10 +97,17 @@
             transition: 0.3s;
             cursor: pointer;
             border: none;
+            animation: sos-glow 2s infinite;
         }
         .sos-btn-large:hover {
             transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(179, 38, 30, 0.4);
+            animation: sos-glow 1s infinite;
+        }
+
+        @keyframes sos-glow {
+            0% { box-shadow: 0 0 0 0 rgba(179, 38, 30, 0.7); }
+            50% { box-shadow: 0 0 30px 10px rgba(179, 38, 30, 0.5); }
+            100% { box-shadow: 0 0 0 0 rgba(179, 38, 30, 0); }
         }
 
         .ripple {
