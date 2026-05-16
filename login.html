@@ -108,11 +108,16 @@
             const user = document.getElementById('username').value.trim().toLowerCase();
             const pass = document.getElementById('password').value.trim();
 
+            console.log('Attempting login with:', { user, pass });
+
             if (user === 'admin' && pass === 'admin') {
+                console.log('Login successful!');
                 localStorage.setItem('isAdmin', 'true');
-                window.location.href = 'dashboard.html';
+                // Use relative path but ensure it's correct
+                window.location.replace('dashboard.html');
             } else {
-                alert('🚨 INVALID CREDENTIALS! Username: admin | Password: admin');
+                console.log('Login failed: Invalid credentials');
+                alert('🚨 LOGIN FAILED!\n\nEntered User: ' + user + '\nEntered Pass: ' + pass + '\n\nREQUIRED:\nUser: admin\nPass: admin');
             }
         });
     </script>
